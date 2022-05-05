@@ -43,7 +43,9 @@ export default function Tasks({ newTasks, inProgressTasks, completedTasks }) {
 			<div className={styles.content__columns}>
 				{
 					isThreeColumnMode ? (
-						taskColumns.map(({ headerName, tasks }) => <TaskColumn headerName={headerName} tasks={tasks} />)
+						taskColumns.map(({ headerName, tasks }) =>
+							<TaskColumn key={headerName} headerName={headerName} tasks={tasks} />
+						)
 					) : (
 						<TaskColumn
 							headerName={taskColumns[switcher.currentIndex].headerName}
@@ -66,7 +68,7 @@ function TaskColumn({ headerName, tasks }) {
 		<div className={styles.taskColumn}>
 			<div className={styles.taskColumn__headerName}>{headerName}</div>
 			<div className={styles.taskColumn__items}>
-				{tasks.map(({ id, name, deadline }) => <TaskItem id={id} name={name} deadline={deadline} />)}
+				{tasks.map(({ id, name, deadline }) => <TaskItem key={id} id={id} name={name} deadline={deadline} />)}
 			</div>
 		</div>
 	)
