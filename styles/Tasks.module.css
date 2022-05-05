@@ -1,0 +1,104 @@
+.content {
+	display: flex;
+	flex-direction: row;
+	gap: 14px;
+}
+
+.content__button {
+	height: 60px;
+	width: 30px;
+
+	background: transparent;
+	border: none !important;
+	font-size: 0;
+	cursor: pointer;
+}
+
+.content__button_disabled {
+	opacity: 0.3;
+}
+
+.content__columns {
+	display: flex;
+	flex-direction: row;
+	flex-grow: 1;
+	gap: 40px;
+}
+
+
+.taskItem {	
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+
+	background: rgba(255, 255, 255, 0.17);
+	background-blend-mode: overlay;
+	padding: 18px;
+	
+	text-decoration: none;
+}
+
+.taskItem__name {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 500;
+	font-size: 16px;
+	line-height: 19px;
+	color: #FFFFFF;
+}
+
+.taskItem__deadline {
+	display: flex;
+	flex-direction: row;
+	gap: 4px;
+}
+
+.taskItem__deadlineHeader {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 700;
+	font-size: 12px;
+	line-height: 14px;
+	color: #FFFFFF;
+}
+
+.taskItem__deadlineDate {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 700;
+	font-size: 12px;
+	line-height: 14px;
+	color: #FFED50;
+}
+
+
+.taskColumn {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	gap: 14px;
+}
+
+.taskColumn__headerName {
+	border: 2px solid #FFFFFF;
+	box-sizing: border-box;
+	padding-top: 15px;
+	padding-bottom: 17px;
+
+	font-family: 'Roboto', sans-serif;
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 23px;
+	color: #F2F2F2;
+	text-align: center;
+}
+
+.taskColumn__items {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+
+@media (min-width: 768px) {
+	.content__button {
+		visibility: hidden;
+	}
+}
