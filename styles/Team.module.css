@@ -1,0 +1,94 @@
+.content {
+	padding-left: 14px;
+	padding-right: 14px;
+}
+
+.content a {
+	text-decoration: none;
+}
+
+.content__types {
+	display: flex;
+	flex-direction: column;
+	gap: 30px;
+}
+
+.userType a{
+	
+}
+
+.userType__headerName {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 500;
+	font-size: 20px;
+	color: #FFFFFF;
+	
+	position: relative;
+	text-align: left;
+	margin-left: 22px;
+}
+
+.userType__buttonPlus {
+	position: relative;
+	text-align: right;
+	top: -21px;
+	cursor: pointer;
+}
+
+.userType__items {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.userItem {	
+	position: relative;
+	padding: 15px;
+	height: 70px;
+	top: -11px;
+	background: #F1F1F1;
+}
+
+.userItem__avatar img{
+	height: 70px;
+}
+
+.userItem__name {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 500;
+	font-size: 20px;
+	color: #3D3BBC;
+	
+	position: relative;
+	top: -62px;
+	margin-left: 84px;
+}
+
+.userItem__description {
+	font-family: 'Roboto', sans-serif;
+	font-size: 16px;
+	line-height: 19px;
+	color: #3D3BBC;
+	
+	position: relative;
+	top: -57px;
+	margin-left: 84px;
+	
+	width: 70%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.edit {
+	font-family: 'Roboto', sans-serif;
+	font-size: 16px;
+	color: #3D3BBC;
+	
+	position: relative;
+	top: -57px;
+	text-align: right;
+	
+	text-decoration: underline;
+	cursor: pointer;
+}
