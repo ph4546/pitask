@@ -1,0 +1,105 @@
+.button {
+    margin-top: 160px;
+    margin-left: 300px;
+    display: flex;
+    padding: 13px 65px;
+    background-color: #FFFFFF;
+    border: 1px solid #3D3BBC;
+    cursor: pointer;
+  
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    color: #3D3BBC;
+    text-align: center;
+  }
+
+.hr
+{
+    width: 400px;
+    color:#3D3BBC;
+}
+
+  .addText{
+      color:#3D3BBC;
+      font-weight: bold;
+      font-family: 'Roboto', sans-serif;
+      margin-left: 15px;
+  }
+
+  .h2{
+      text-align: center;
+      margin-top: 1px;
+      color:#3D3BBC;
+  }
+
+  .nameOfProject {
+    display: block;
+    width: 95%;
+    height: calc(2.25rem + 2px);
+    padding: 0.375rem 0.75rem;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #3D3BBC;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #bdbdbd;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+
+  .description {
+    display: block;
+    width: 95%;
+    height: calc(6.25rem + 2px);
+    resize: none;
+    padding: 0.375rem 0.75rem;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 400;
+    color:#3D3BBC;
+    line-height: 1.5;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #bdbdbd;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+
+  .mail {
+    display: block;
+    width: 95%;
+    height: calc(2.25rem + 2px);
+    padding: 0.375rem 0.75rem;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #3D3BBC;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #bdbdbd;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+
+  /*
+display: block – устанавливает блочное отображение;
+width: 100% – занимает всю доступную ширину;
+height: calc(2.25rem + 2px) – высота элемента определяется путём сложения 2.25rem (font-size * line-height + padding-top + padding-bottom) и 2px (ширина верхней и нижней границы);
+margin: 0 – убирает margin отступы;
+padding: 0.375rem 0.75rem – внутренние поля: сверху и снизу – 0.375rem, а слева и справа – 0.75rem;
+font-family: inherit – чтобы шрифт был такой как у родительского элемента, а не тот который браузер по умолчанию назначает для <input>;
+font-size: 1rem – устанавливает явный размер шрифта, иначе будет браться из стилей браузера для <input>;
+font-weight: 400 – задаёт начертание шрифта;
+line-height: 1.5 – высота строки (1.5 * размер шрифта);
+color: #212529 – цвет шрифта;
+background-color: #fff – цвет фона;
+background-clip: padding-box – указывает, что фон (фоновое изображение) нужно рисовать только до внешнего края отступа (под границей не выводить);
+border: 1px solid #bdbdbd – устанавливает границу, у которой: 1px (толщина), solid (тип линии) и #bdbdbd (цвет);
+border-radius: 0.25rem – радиус скругления углов;
+transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out – выполняет изменение значений свойств border-color и box-shadow с анимацией длительностью 0.15 секунд посредством временной функцией ease-in-out.
+  */
