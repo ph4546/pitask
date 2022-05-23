@@ -1,0 +1,150 @@
+.main {
+	margin-top: 72px;
+	margin-left: 230px;
+}
+
+.line1
+{
+	position: absolute;
+	top: 50px;
+	left: 0;
+	width: 100%;
+	height: 1px;
+	background-color: white;
+}
+
+.line2
+{
+	display: block;
+	position: fixed;
+	top: 50px;
+	left: 230px;
+	width: 1px;
+	height: 100%;
+	background-color: white;
+}
+
+.topMenu
+{
+	position: absolute;
+	width: 100%;
+	height: 50px;
+	left: 0;
+	top: 0;
+}
+
+.logo
+{
+	position: absolute;
+	width: 230px;
+	text-align: center;
+}
+
+.logo img
+{
+	height: 22px;
+	margin-top: 14px;
+}
+
+#notification
+{
+	position: absolute;
+	right: 70px;
+	width: 34px;
+	top: 8px;
+	
+	cursor: pointer;
+}
+
+#profile
+{
+	position: absolute;
+	right: 25px;
+	width: 30px;
+	top: 10px;
+	
+	cursor: pointer;
+}
+
+.leftMenu
+{
+	position: absolute;
+	width: 230px;
+	height: 80%;
+	left: 0;
+	top: 50px;
+}
+
+.taskList
+{
+	margin-top: 1px;
+	width: 230px;
+	height: 50px;
+	background-color: #5956F5;
+	mix-blend-mode: color-dodge;
+}
+
+.team
+{
+	width: 230px;
+	height: 50px;
+	mix-blend-mode: color-dodge;
+}
+
+.about
+{
+	width: 230px;
+	height: 50px;
+	mix-blend-mode: color-dodge;
+}
+
+.link
+{
+	display: block;
+	height: 100%;
+}
+
+#link2:hover, #link3:hover 
+{
+	background-color: #1D1D1D;
+}
+
+#icon1
+{
+	position: absolute;
+	left: 25px;
+	margin-right: 10px;
+	width: 30px;
+	margin-top: 15px;
+}
+
+#icon2
+{
+	position: absolute;
+	left: 25px;
+	margin-right: 10px;
+	width: 30px;
+	margin-top: 18px;
+}
+
+#icon3
+{
+	position: absolute;
+	left: 25px;
+	margin-right: 10px;
+	width: 30px;
+	margin-top: 11px;
+}
+
+.menuItem
+{
+	position: absolute;
+	font-family: 'Roboto', sans-serif;
+	color: white;
+	font-size: 20;
+	margin-top: 16px;
+	margin-left: 70px;
+	
+	cursor: pointer;
+}
+
