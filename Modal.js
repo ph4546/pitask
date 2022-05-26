@@ -1,7 +1,6 @@
  import React, { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
 import styled from "styled-components";
-import StyledModalTitle from "styled-components";
 
 const Modal = ({ show, onClose, children, title }) => {
     const [isBrowser, setIsBrowser] = useState(false);
@@ -39,6 +38,8 @@ const Modal = ({ show, onClose, children, title }) => {
     }
   };
   
+  const StyledModalTitle = styled.div;
+
   const StyledModalBody = styled.div`
     padding-top: 10px;
   `;
