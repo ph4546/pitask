@@ -22,7 +22,6 @@ const Modal = ({ show, onClose, children, title }) => {
               x
             </a>
           </StyledModalHeader>
-          {title && <StyledModalTitle>{title}</StyledModalTitle>}
           <StyledModalBody>{children}</StyledModalBody>
         </StyledModal>
       </StyledModalOverlay>
@@ -38,7 +37,7 @@ const Modal = ({ show, onClose, children, title }) => {
     }
   };
   
-  const StyledModalTitle = styled.div;
+  //{title && <StyledModalTitle>{title}</StyledModalTitle>}
 
   const StyledModalBody = styled.div`
     padding-top: 10px;
