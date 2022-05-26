@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+ import React, { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
 import styled from "styled-components";
 
@@ -22,7 +22,6 @@ const Modal = ({ show, onClose, children, title }) => {
               x
             </a>
           </StyledModalHeader>
-          {title && <StyledModalTitle>{title}</StyledModalTitle>}
           <StyledModalBody>{children}</StyledModalBody>
         </StyledModal>
       </StyledModalOverlay>
@@ -38,6 +37,8 @@ const Modal = ({ show, onClose, children, title }) => {
     }
   };
   
+  //{title && <StyledModalTitle>{title}</StyledModalTitle>}
+
   const StyledModalBody = styled.div`
     padding-top: 10px;
   `;
