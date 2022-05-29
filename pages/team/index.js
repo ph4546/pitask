@@ -38,7 +38,7 @@ export default function Team({ creator, administrator, executor }) {
 			
 			<div className={styles.content__types}>
 				{
-					userType.map(({ headerName, user, buttonPlus }) => <UserType headerName={headerName} user={user} buttonPlus={buttonPlus} />)
+					userType.map(({ headerName, user, buttonPlus }) => <UserType key ={headerName} headerName={headerName} user={user} buttonPlus={buttonPlus} />)
 				}
 			</div>
 			
@@ -52,7 +52,7 @@ function UserType({ headerName, user, buttonPlus }) {
 			<div className={styles.userType__headerName}>{headerName}</div>
 			<div className={styles.userType__buttonPlus}><img src={buttonPlus} /></div>
 			<div className={styles.userType__items}>
-				{user.map(({ id, name, description, avatar }) => <UserItem id={id} name={name} description={description} avatar={avatar} />)}
+				{user.map(({ id, name, description, avatar }) => <UserItem key ={id} id={id} name={name} description={description} avatar={avatar} />)}
 			</div>
 		</div>
 	)
