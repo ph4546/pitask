@@ -1,0 +1,53 @@
+.main {
+	
+}
+
+.line1
+{
+	position: fixed;
+	top: 50px;
+	left: 0;
+	width: 100%;
+	height: 1px;
+	background-color: white;
+}
+
+.topMenu
+{
+	position: fixed;
+	width: 100%;
+	height: 50px;
+	left: 0;
+	top: 0;
+	background-color: #5956F5;
+	background-image: url(/background.svg);
+	background-size: cover;
+	z-index: 1;
+}
+
+.logo
+{
+	position: absolute;
+	width: 230px;
+	text-align: center;
+	padding-top: 14px;
+}
+
+#notification
+{
+	position: absolute;
+	right: 70px;
+	top: 8px;
+	
+	cursor: pointer;
+}
+
+#profile
+{
+	position: absolute;
+	right: 25px;
+	top: 10px;
+	
+	cursor: pointer;
+}
+

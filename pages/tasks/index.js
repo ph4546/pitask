@@ -4,7 +4,10 @@ import { useState } from 'react'
 import { useMediaQuery } from '/lib/react-helpers'
 import execute from '/lib/prop-helpers'
 import styles from '/styles/Tasks.module.css'
+import stylesLeftMenu from '/styles/LeftMenu.module.css'
 const dayjs = require('dayjs')
+import TopMenu from '/components/layout/topMenu.js'
+import LeftMenu from '/components/layout/leftMenu.js'
 
 
 export async function getServerSideProps() {
@@ -34,32 +37,36 @@ export default function Tasks({ newTasks, inProgressTasks, completedTasks }) {
 	const isThreeColumnMode = useMediaQuery('(min-width: 768px)')
 
 	return (
-		<div className={styles.content}>
-			<button
-				className={`${styles.content__button} ${switcher.isFirst() ? styles.content__button_disabled : null}`}
-				onClick={() => { setSwitcher(switcher.goPrevious()); }}>
-				<Image src='/leftArrow.svg' width={12} height={30} />
-			</button>
-			<div className={styles.content__columns}>
-				{
-					isThreeColumnMode ? (
-						taskColumns.map(({ headerName, tasks }) =>
-							<TaskColumn key={headerName} headerName={headerName} tasks={tasks} />
-						)
-					) : (
-						<TaskColumn
-							headerName={taskColumns[switcher.currentIndex].headerName}
-							tasks={taskColumns[switcher.currentIndex].tasks}
-						/>
-					)
-				}
-			</div>
-			<button
-				className={`${styles.content__button} ${switcher.isLast() ? styles.content__button_disabled : null}`}
-				onClick={() => { setSwitcher(switcher.goNext()) }}>
-				<Image src='/rightArrow.svg' width={12} height={30} />
-			</button>
-		</div>
+		<TopMenu>
+			<LeftMenu sTasks={stylesLeftMenu.link_selected} sTeam={stylesLeftMenu.link} sProject={stylesLeftMenu.link}>
+				<div className={styles.content}>
+					<button
+						className={`${styles.content__button} ${switcher.isFirst() ? styles.content__button_disabled : null}`}
+						onClick={() => { setSwitcher(switcher.goPrevious()); }}>
+						<Image src='/leftArrow.svg' alt="" width={12} height={30} />
+					</button>
+					<div className={styles.content__columns}>
+						{
+							isThreeColumnMode ? (
+								taskColumns.map(({ headerName, tasks }) =>
+									<TaskColumn key={headerName} headerName={headerName} tasks={tasks} />
+								)
+							) : (
+								<TaskColumn
+									headerName={taskColumns[switcher.currentIndex].headerName}
+									tasks={taskColumns[switcher.currentIndex].tasks}
+								/>
+							)
+						}
+					</div>
+					<button
+						className={`${styles.content__button} ${switcher.isLast() ? styles.content__button_disabled : null}`}
+						onClick={() => { setSwitcher(switcher.goNext()) }}>
+						<Image src='/rightArrow.svg' alt="" width={12} height={30} />
+					</button>
+				</div>
+			</LeftMenu>
+		</TopMenu>
 	)
 }
 
