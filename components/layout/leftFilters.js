@@ -13,7 +13,7 @@ const LeftFilters =({children}) =>{
 				<label>Фильтр</label>
 				<div className={styles.filter}>
 					<input type="checkbox" name="filter" value="Активные" id={styles["checkbox1"]}/>
-					<label for="checkbox1">Активные</label>
+					<label>Активные</label>
 				</div>
 				<div className={styles.filter}>
 					<input type="checkbox" name="filter" value="Завершенные"/>

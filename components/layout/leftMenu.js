@@ -18,7 +18,7 @@ const LeftMenu =({sTasks, sTeam, sProject, children}) =>{
 				<div className={styles.menuItem}>
 					<Link href={`/tasks`}>
 						<a href="" className={styleTasks}>
-							<div className={styles.icon}><Image src="/taskList.svg" width={30} height={30}/></div>
+							<div className={styles.icon}><Image src="/taskList.svg" alt="" width={30} height={30}/></div>
 							<label className={styles.label}>Список задач</label>
 						</a>
 					</Link>
@@ -26,7 +26,7 @@ const LeftMenu =({sTasks, sTeam, sProject, children}) =>{
 				<div className={styles.menuItem}>
 					<Link href={`/team`}>
 						<a href="" className={styleTeam}>
-							<div className={styles.icon}><Image src="/team.svg" width={30} height={30}/></div>
+							<div className={styles.icon}><Image src="/team.svg" alt="" width={30} height={30}/></div>
 							<label className={styles.label}>Команда</label>
 						</a>
 					</Link>
@@ -34,7 +34,7 @@ const LeftMenu =({sTasks, sTeam, sProject, children}) =>{
 				<div className={styles.menuItem}>
 					<Link href={`/aboutProject`}>
 						<a href="" className={styleProject}>
-							<div className={styles.icon}><Image src="/aboutProject.svg" width={30} height={30}/></div>
+							<div className={styles.icon}><Image src="/aboutProject.svg" alt="" width={30} height={30}/></div>
 							<label className={styles.label}>О проекте</label>
 						</a>
 					</Link>

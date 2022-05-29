@@ -43,7 +43,7 @@ export default function Tasks({ newTasks, inProgressTasks, completedTasks }) {
 					<button
 						className={`${styles.content__button} ${switcher.isFirst() ? styles.content__button_disabled : null}`}
 						onClick={() => { setSwitcher(switcher.goPrevious()); }}>
-						<Image src='/leftArrow.svg' width={12} height={30} />
+						<Image src='/leftArrow.svg' alt="" width={12} height={30} />
 					</button>
 					<div className={styles.content__columns}>
 						{
@@ -62,7 +62,7 @@ export default function Tasks({ newTasks, inProgressTasks, completedTasks }) {
 					<button
 						className={`${styles.content__button} ${switcher.isLast() ? styles.content__button_disabled : null}`}
 						onClick={() => { setSwitcher(switcher.goNext()) }}>
-						<Image src='/rightArrow.svg' width={12} height={30} />
+						<Image src='/rightArrow.svg' alt="" width={12} height={30} />
 					</button>
 				</div>
 			</LeftMenu>

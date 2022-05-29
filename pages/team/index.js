@@ -54,7 +54,7 @@ function UserType({ headerName, user, buttonPlus }) {
 	return (
 		<div className={styles.UserType}>
 			<div className={styles.userType__headerName}>{headerName}</div>
-			<div className={styles.userType__buttonPlus}><Image src={buttonPlus} width={21} height={21} /></div>
+			<div className={styles.userType__buttonPlus}><Image src={buttonPlus} alt="" width={21} height={21} /></div>
 			<div className={styles.userType__items}>
 				{user.map(({ id, name, description, avatar }) => <UserItem key={id} id={id} name={name} description={description} avatar={avatar} />)}
 			</div>
@@ -67,7 +67,7 @@ function UserItem({ id, name, description, avatar }) {
 		<div className={styles.userItem}>
 			<Link href={`/team/${encodeURIComponent(id)}`}>
 				<a>
-					<div className={styles.userItem__avatar}><Image src={avatar} width={70} height={70} /></div>
+					<div className={styles.userItem__avatar}><Image src={avatar} alt="" width={70} height={70} /></div>
 					<div className={styles.userItem__name}>{name}</div>
 					<div className={styles.userItem__description}>{description}</div>
 				</a>
