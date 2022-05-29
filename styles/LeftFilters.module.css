@@ -1,0 +1,36 @@
+.main {
+	margin-top: 72px;
+	margin-left: 230px;
+}
+
+.line2
+{
+	display: block;
+	position: fixed;
+	top: 50px;
+	left: 230px;
+	width: 1px;
+	height: 100%;
+	background-color: white;
+}
+
+.leftMenu
+{
+	display: block;
+	position: fixed;
+	width: 230px;
+	height: 80%;
+	left: 0;
+	top: 50px;
+	
+	padding-top: 11px;
+	padding-left: 16px;
+	
+	font-family: 'Roboto', sans-serif;
+	color: white;
+	font-size: 20;
+}
+
+.filter {
+	margin-top: 10px;
+}

@@ -1,0 +1,71 @@
+.main {
+	margin-top: 72px;
+	margin-left: 230px;
+}
+
+.line2
+{
+	display: block;
+	position: fixed;
+	top: 50px;
+	left: 230px;
+	width: 1px;
+	height: 100%;
+	bottom: 0px;
+	background-color: white;
+}
+
+.leftMenu
+{
+	display: block;
+	position: fixed;
+	mix-blend-mode: color-dodge;
+	width: 230px;
+	height: 80%;
+	left: 0;
+	top: 51px;
+}
+
+.menuItem
+{
+	width: 230px;
+	height: 50px;
+}
+
+.link
+{
+	display: block;
+	height: 100%;
+}
+
+.link:hover
+{
+	background-color: #1D1D1D;
+}
+
+.link_selected
+{
+	display: block;
+	height: 100%;
+	background-color: #5956F5;
+}
+
+.icon {
+	position: absolute;
+	left: 25px;
+	margin-right: 10px;
+	margin-top: 10px;
+}
+
+.label
+{
+	position: absolute;
+	font-family: 'Roboto', sans-serif;
+	color: white;
+	font-size: 20;
+	margin-top: 16px;
+	margin-left: 70px;
+	
+	cursor: pointer;
+}
+
