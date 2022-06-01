@@ -8,6 +8,8 @@ import stylesLeftMenu from '/styles/LeftMenu.module.css'
 const dayjs = require('dayjs')
 import TopMenu from '/components/layout/topMenu.js'
 import LeftMenu from '/components/layout/leftMenu.js'
+import BackAndTitle from '/components/blocks/back-and-title.js'
+import AddButton from '/components/blocks/add-button.js'
 
 
 export async function getServerSideProps() {
@@ -39,6 +41,8 @@ export default function Tasks({ newTasks, inProgressTasks, completedTasks }) {
 	return (
 		<TopMenu>
 			<LeftMenu sTasks={stylesLeftMenu.link_selected} sTeam={stylesLeftMenu.link} sProject={stylesLeftMenu.link}>
+				<BackAndTitle text="МОЙ ПРОЕКТ" link='/projects'/>
+				<AddButton text="Добавить задачу"/>
 				<div className={styles.content}>
 					<button
 						className={`${styles.content__button} ${switcher.isFirst() ? styles.content__button_disabled : null}`}
