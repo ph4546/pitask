@@ -5,6 +5,7 @@ body {
   padding: 0;
   background-image:url('/background.svg');
   background-size: 100% auto;
+  background-attachment: fixed;
 	
   font-family: 'Roboto', sans-serif;
 }

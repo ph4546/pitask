@@ -8,6 +8,8 @@ import stylesLeftMenu from '/styles/LeftMenu.module.css'
 import TopMenu from '/components/layout/topMenu.js'
 import LeftMenu from '/components/layout/leftMenu.js'
 import LeftFilters from '/components/layout/leftFilters.js'
+import BackAndTitle from '/components/blocks/back-and-title.js'
+import AddButton from '/components/blocks/add-button.js'
 
 
 export async function getServerSideProps() {
@@ -40,6 +42,8 @@ export default function Team({ creator, administrator, executor }) {
 	return (
 		<TopMenu> 
 			<LeftMenu sTasks={stylesLeftMenu.link} sTeam={stylesLeftMenu.link_selected} sProject={stylesLeftMenu.link}>
+				<BackAndTitle text="МОЙ ПРОЕКТ" link='/projects'/>
+				<AddButton text="Добавить участника"/>
 				<div className={styles.content}>
 					<div className={styles.content__types}>
 						{userType.map(({ id, headerName, user, buttonPlus }) => <UserType key={id} id={id} headerName={headerName} user={user} buttonPlus={buttonPlus} />)}
@@ -66,7 +70,7 @@ function UserItem({ id, name, description, avatar }) {
 	return (
 		<div className={styles.userItem}>
 			<Link href={`/team/${encodeURIComponent(id)}`}>
-				<a>
+				<a href="">
 					<div className={styles.userItem__avatar}><Image src={avatar} alt="" width={70} height={70} /></div>
 					<div className={styles.userItem__name}>{name}</div>
 					<div className={styles.userItem__description}>{description}</div>

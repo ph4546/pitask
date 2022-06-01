@@ -1,0 +1,31 @@
+.component {
+  display: inline-block;
+  max-width: 500px;
+  
+  position: absolute;
+  height: 25px;
+  left: 244px;
+}
+
+.button {
+	width: 21px;
+}
+
+.button a {
+	display: block;
+}
+
+.text {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 500;
+	font-size: 20px;
+	color: #FFFFFF;
+	
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	
+	margin-left: 29px;
+	position: relative;
+	bottom: 26px;
+}
