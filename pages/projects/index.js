@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Modal from "/components/Modal";
+import Modal from "/components/blocks/Modal";
 import styles from "/styles/Projects.module.css";
 
 export default function Home() {
