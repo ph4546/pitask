@@ -21,7 +21,8 @@ export async function getServerSideProps({ query }) {
 
 
 export default function Tasks(props) {
-  var [switcher, setSwitcher] = useState(new Switcher(3))
+  const [showModal, setShowModal] = useState(false);
+  const [switcher, setSwitcher] = useState(new Switcher(3))
   const isThreeColumnMode = useMediaQuery('(min-width: 768px)')
 
   // Обработать ошибки получения данных
