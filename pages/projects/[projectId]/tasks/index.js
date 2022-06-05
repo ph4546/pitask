@@ -10,6 +10,7 @@ import TopMenu from '/components/layout/topMenu.js'
 import LeftMenu from '/components/layout/leftMenu.js'
 import BackAndTitle from '/components/blocks/back-and-title.js'
 import AddButton from '/components/blocks/add-button.js'
+import Modal from '/components/blocks/Modal'
 
 
 export async function getServerSideProps({ query }) {
