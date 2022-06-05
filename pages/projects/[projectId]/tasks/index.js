@@ -19,147 +19,151 @@ export async function getServerSideProps({ query }) {
 }
 
 
-// Пример открытия страницы: `/tasks?project=1`
 export default function Tasks(props) {
+  const [taskColumns, setTaskColumns] = useState(null)
+  const [switcher, setSwitcher] = useState(null)
+  const isThreeColumnMode = useMediaQuery('(min-width: 768px)')
+
+  // Обработать ошибки получения данных
   if (typeof props.ok == typeof undefined) {
     if (typeof props.error == typeof undefined) {
-      return ('emptyResponse')
+      return (<div>emptyResponse</div>)
     }
-    return (props.error)
+    return (<div>{props.error}</div>)
   }
   const { ok: { newTasks, inProgressTasks, completedTasks } } = props
-  
-	const [taskColumns] = useState([
-		{
-			headerName: 'Новое',
-			tasks: newTasks
-		},
-		{
-			headerName: 'В процессе',
-			tasks: inProgressTasks
-		},
-		{
-			headerName: 'Завершено',
-			tasks: completedTasks
-		}
-	])
-	const [switcher, setSwitcher] = useState(new Switcher(taskColumns.length))
-	const isThreeColumnMode = useMediaQuery('(min-width: 768px)')
 
-	return (
-		<TopMenu>
-			<LeftMenu sTasks={stylesLeftMenu.link_selected} sTeam={stylesLeftMenu.link} sProject={stylesLeftMenu.link}>
-				<BackAndTitle text="МОЙ ПРОЕКТ" link='/projects'/>
-				<AddButton text="Добавить задачу"/>
-				<div className={styles.content}>
-					<button
-						className={`${styles.content__button} ${switcher.isFirst() ? styles.content__button_disabled : null}`}
-						onClick={() => { setSwitcher(switcher.goPrevious()); }}>
-						<Image src='/leftArrow.svg' alt="" width={12} height={30} />
-					</button>
-					<div className={styles.content__columns}>
-						{
-							isThreeColumnMode ? (
-								taskColumns.map(({ headerName, tasks }) =>
-									<TaskColumn key={headerName} headerName={headerName} tasks={tasks} />
-								)
-							) : (
-								<TaskColumn
-									headerName={taskColumns[switcher.currentIndex].headerName}
-									tasks={taskColumns[switcher.currentIndex].tasks}
-								/>
-							)
-						}
-					</div>
-					<button
-						className={`${styles.content__button} ${switcher.isLast() ? styles.content__button_disabled : null}`}
-						onClick={() => { setSwitcher(switcher.goNext()) }}>
-						<Image src='/rightArrow.svg' alt="" width={12} height={30} />
-					</button>
-				</div>
-			</LeftMenu>
-		</TopMenu>
-	)
+  // Инициировать состояния
+  setTaskColumns([
+    {
+      headerName: 'Новое',
+      tasks: newTasks
+    },
+    {
+      headerName: 'В процессе',
+      tasks: inProgressTasks
+    },
+    {
+      headerName: 'Завершено',
+      tasks: completedTasks
+    }
+  ])
+  setSwitcher(new Switcher(taskColumns.length))
+
+  return (
+    <TopMenu>
+      <LeftMenu sTasks={stylesLeftMenu.link_selected} sTeam={stylesLeftMenu.link} sProject={stylesLeftMenu.link}>
+        <BackAndTitle text="МОЙ ПРОЕКТ" link='/projects' />
+        <AddButton text="Добавить задачу" />
+        <div className={styles.content}>
+          <button
+            className={`${styles.content__button} ${switcher.isFirst() ? styles.content__button_disabled : null}`}
+            onClick={() => { setSwitcher(switcher.goPrevious()); }}>
+            <Image src='/leftArrow.svg' alt="" width={12} height={30} />
+          </button>
+          <div className={styles.content__columns}>
+            {
+              isThreeColumnMode ? (
+                taskColumns.map(({ headerName, tasks }) =>
+                  <TaskColumn key={headerName} headerName={headerName} tasks={tasks} />
+                )
+              ) : (
+                <TaskColumn
+                  headerName={taskColumns[switcher.currentIndex].headerName}
+                  tasks={taskColumns[switcher.currentIndex].tasks}
+                />
+              )
+            }
+          </div>
+          <button
+            className={`${styles.content__button} ${switcher.isLast() ? styles.content__button_disabled : null}`}
+            onClick={() => { setSwitcher(switcher.goNext()) }}>
+            <Image src='/rightArrow.svg' alt="" width={12} height={30} />
+          </button>
+        </div>
+      </LeftMenu>
+    </TopMenu>
+  )
 }
 
 function TaskColumn({ headerName, tasks }) {
-	return (
-		<div className={styles.taskColumn}>
-			<div className={styles.taskColumn__headerName}>{headerName}</div>
-			<div className={styles.taskColumn__items}>
-				{tasks.map(({ id, name, deadline }) => <TaskItem key={id} id={id} name={name} deadline={deadline} />)}
-			</div>
-		</div>
-	)
+  return (
+    <div className={styles.taskColumn}>
+      <div className={styles.taskColumn__headerName}>{headerName}</div>
+      <div className={styles.taskColumn__items}>
+        {tasks.map(({ id, name, deadline }) => <TaskItem key={id} id={id} name={name} deadline={deadline} />)}
+      </div>
+    </div>
+  )
 }
 
 function TaskItem({ id, name, deadline }) {
-	return (
-		<Link href={`/tasks/${encodeURIComponent(id)}`}>
-			<a className={styles.taskItem}>
-				<div className={styles.taskItem__name}>{name}</div>
-				<div className={styles.taskItem__deadline}>
-					<div className={styles.taskItem__deadlineHeader}>Дедлайн:</div>
-					<div className={styles.taskItem__deadlineDate}>{dayjs(deadline).format('DD-MM HH:mm')}</div>
-				</div>
-			</a>
-		</Link>
-	)
+  return (
+    <Link href={`/tasks/${encodeURIComponent(id)}`}>
+      <a className={styles.taskItem}>
+        <div className={styles.taskItem__name}>{name}</div>
+        <div className={styles.taskItem__deadline}>
+          <div className={styles.taskItem__deadlineHeader}>Дедлайн:</div>
+          <div className={styles.taskItem__deadlineDate}>{dayjs(deadline).format('DD-MM HH:mm')}</div>
+        </div>
+      </a>
+    </Link>
+  )
 }
 
 class Switcher {
-	#currentIndex
-	#maxIndex
+  #currentIndex
+  #maxIndex
 
-	constructor(length) {
-		if (length < 1) {
-			throw new Error('`length` must be greater than or equal to 1')
-		}
-		this.#currentIndex = 0
-		this.#maxIndex = length - 1
-	}
+  constructor(length) {
+    if (length < 1) {
+      throw new Error('`length` must be greater than or equal to 1')
+    }
+    this.#currentIndex = 0
+    this.#maxIndex = length - 1
+  }
 
-	goPrevious() {
-		const newCurrentIndex = this.#currentIndex - 1
-		if (newCurrentIndex < 0) {
-			return this.#cloneSwitcher()
-		}
+  goPrevious() {
+    const newCurrentIndex = this.#currentIndex - 1
+    if (newCurrentIndex < 0) {
+      return this.#cloneSwitcher()
+    }
 
-		return this.#cloneSwitcherWith(newCurrentIndex)
-	}
+    return this.#cloneSwitcherWith(newCurrentIndex)
+  }
 
-	goNext() {
-		const newCurrentIndex = this.#currentIndex + 1
-		if (newCurrentIndex > this.#maxIndex) {
-			return this.#cloneSwitcher()
-		}
+  goNext() {
+    const newCurrentIndex = this.#currentIndex + 1
+    if (newCurrentIndex > this.#maxIndex) {
+      return this.#cloneSwitcher()
+    }
 
-		return this.#cloneSwitcherWith(newCurrentIndex)
-	}
+    return this.#cloneSwitcherWith(newCurrentIndex)
+  }
 
-	isFirst() {
-		return this.#currentIndex == 0
-	}
+  isFirst() {
+    return this.#currentIndex == 0
+  }
 
-	isLast() {
-		return this.#currentIndex == this.#maxIndex
-	}
+  isLast() {
+    return this.#currentIndex == this.#maxIndex
+  }
 
-	get currentIndex() {
-		return this.#currentIndex
-	}
+  get currentIndex() {
+    return this.#currentIndex
+  }
 
-	#cloneSwitcherWith(currentIndex) {
-		var newSwitcher = new Switcher()
-		newSwitcher.#currentIndex = currentIndex
-		newSwitcher.#maxIndex = this.#maxIndex
-		return newSwitcher
-	}
+  #cloneSwitcherWith(currentIndex) {
+    var newSwitcher = new Switcher()
+    newSwitcher.#currentIndex = currentIndex
+    newSwitcher.#maxIndex = this.#maxIndex
+    return newSwitcher
+  }
 
-	#cloneSwitcher() {
-		var newSwitcher = new Switcher()
-		newSwitcher.#currentIndex = this.#currentIndex
-		newSwitcher.#maxIndex = this.#maxIndex
-		return newSwitcher
-	}
+  #cloneSwitcher() {
+    var newSwitcher = new Switcher()
+    newSwitcher.#currentIndex = this.#currentIndex
+    newSwitcher.#maxIndex = this.#maxIndex
+    return newSwitcher
+  }
 }

@@ -12,15 +12,16 @@ export async function getServerSideProps() {
 
 
 export default function Home(props) {
+	const [showModal, setShowModal] = useState(false);
+
+  // Обработать ошибки получения данных
   if (typeof props.ok == typeof undefined) {
     if (typeof props.error == typeof undefined) {
-      return ('emptyResponse')
+      return (<div>emptyResponse</div>)
     }
-    return (props.error)
+    return (<div>{props.error}</div>)
   }
   const { ok: { projects } } = props
-
-	const [showModal, setShowModal] = useState(false);
   
 	return (
 	  <div>

@@ -20,15 +20,19 @@ export async function getServerSideProps({ query }) {
 
 
 export default function Team(props) {
+	const [userType, setUserType] = useState(null)
+
+  // Обработать ошибки получения данных
   if (typeof props.ok == typeof undefined) {
     if (typeof props.error == typeof undefined) {
-      return ('emptyResponse')
+      return (<div>emptyResponse</div>)
     }
-    return (props.error)
+    return (<div>{props.error}</div>)
   }
   const { ok: { owner, admin, executors } } = props
 
-	const [userType] = useState([
+  // Инициировать состояния
+  setUserType([
 		{
 			headerName: 'Создатель проекта',
 			user: owner,
