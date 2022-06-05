@@ -36,7 +36,7 @@ export default function Home(props) {
 			<p><textarea className = {styles.description} type="text" id="description" placeholder="Описание проекта"></textarea></p>
 			<div className = {styles.addText}>Добавление участников</div>
 			<p><input className = {styles.mail} type="text" id="mail" placeholder="Почта"></input></p>
-			<button className={styles.button}>Готово</button>
+			<button className={styles.button} onClick = {() => setShowModal(false)}>Готово</button>
 		  </Modal>
 	  </div>
 	)
