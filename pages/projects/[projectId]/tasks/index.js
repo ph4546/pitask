@@ -20,8 +20,7 @@ export async function getServerSideProps({ query }) {
 
 
 export default function Tasks(props) {
-  const [taskColumns, setTaskColumns] = useState(null)
-  const [switcher, setSwitcher] = useState(null)
+  var [switcher, setSwitcher] = useState(new Switcher(3))
   const isThreeColumnMode = useMediaQuery('(min-width: 768px)')
 
   // Обработать ошибки получения данных
@@ -33,8 +32,8 @@ export default function Tasks(props) {
   }
   const { ok: { newTasks, inProgressTasks, completedTasks } } = props
 
-  // Инициировать состояния
-  setTaskColumns([
+  // Подготовить данные
+  const taskColumns = [
     {
       headerName: 'Новое',
       tasks: newTasks
@@ -47,8 +46,7 @@ export default function Tasks(props) {
       headerName: 'Завершено',
       tasks: completedTasks
     }
-  ])
-  setSwitcher(new Switcher(taskColumns.length))
+  ]  
 
   return (
     <TopMenu>

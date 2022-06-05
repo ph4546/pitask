@@ -20,8 +20,6 @@ export async function getServerSideProps({ query }) {
 
 
 export default function Team(props) {
-	const [userType, setUserType] = useState(null)
-
   // Обработать ошибки получения данных
   if (typeof props.ok == typeof undefined) {
     if (typeof props.error == typeof undefined) {
@@ -31,24 +29,24 @@ export default function Team(props) {
   }
   const { ok: { owner, admin, executors } } = props
 
-  // Инициировать состояния
-  setUserType([
-		{
-			headerName: 'Создатель проекта',
-			user: owner,
-			buttonPlus: "/empty.png"
-		},
-		{
-			headerName: 'Администратор',
-			user: admin,
-			buttonPlus: '/plus.svg'
-		},
-		{
-			headerName: 'Исполнители',
-			user: executors,
-			buttonPlus: '/plus.svg'
-		}
-	])
+  // Подготовить данные
+  const userType = [
+    {
+      headerName: 'Создатель проекта',
+      user: owner,
+      buttonPlus: "/empty.png"
+    },
+    {
+      headerName: 'Администратор',
+      user: admin,
+      buttonPlus: '/plus.svg'
+    },
+    {
+      headerName: 'Исполнители',
+      user: executors,
+      buttonPlus: '/plus.svg'
+    }
+  ]
 	
 	return (
 		<TopMenu> 
