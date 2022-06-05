@@ -12,8 +12,22 @@ import LeftMenu from '/components/layout/leftMenu.js'
 import BackAndTitle from '/components/blocks/back-and-title.js'
 
 
-export default function AboutProject() {
-	
+export async function getServerSideProps({ query }) {
+  return {
+    props: await execute('/api/getProjectDescription', { projectId: query.projectId })
+  }
+}
+
+
+export default function AboutProject(props) {
+	if (typeof props.ok == typeof undefined) {
+    if (typeof props.error == typeof undefined) {
+      return ('emptyResponse')
+    }
+    return (props.error)
+  }
+  const { ok: { description } } = props
+
 	return (
 		<>
 		<TopMenu>
@@ -25,7 +39,7 @@ export default function AboutProject() {
 		</TopMenu>
 
 		<div className = {styles.TextBox}>
-			<TextArea placeholder='Описание проекта...' />
+			<TextArea placeholder='Описание проекта...'>{description}</TextArea>
 		</div>
 
 			<div className={styles.string}><label>Администратор:</label></div>

@@ -1,8 +1,25 @@
 import { useState } from "react";
+import execute from '/lib/prop-helpers'
 import Modal from "/components/blocks/Modal";
 import styles from "/styles/Projects.module.css";
 
-export default function Home() {
+
+export async function getServerSideProps() {
+  return {
+    props: await execute('/api/getProjects', { searchText: '' })
+  }
+}
+
+
+export default function Home(props) {
+  if (typeof props.ok == typeof undefined) {
+    if (typeof props.error == typeof undefined) {
+      return ('emptyResponse')
+    }
+    return (props.error)
+  }
+  const { ok: { projects } } = props
+
 	const [showModal, setShowModal] = useState(false);
   
 	return (

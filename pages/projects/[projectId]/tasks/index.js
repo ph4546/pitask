@@ -12,15 +12,23 @@ import BackAndTitle from '/components/blocks/back-and-title.js'
 import AddButton from '/components/blocks/add-button.js'
 
 
-export async function getServerSideProps() {
-	const { newTasks, inProgressTasks, completedTasks } = await execute('/api/tasks', {})
-	return {
-		props: { newTasks: newTasks, inProgressTasks: inProgressTasks, completedTasks: completedTasks }
-	}
+export async function getServerSideProps({ query }) {
+  return {
+    props: await execute('/api/getTasks', { projectId: query.projectId })
+  }
 }
 
 
-export default function Tasks({ newTasks, inProgressTasks, completedTasks }) {
+// Пример открытия страницы: `/tasks?project=1`
+export default function Tasks(props) {
+  if (typeof props.ok == typeof undefined) {
+    if (typeof props.error == typeof undefined) {
+      return ('emptyResponse')
+    }
+    return (props.error)
+  }
+  const { ok: { newTasks, inProgressTasks, completedTasks } } = props
+  
 	const [taskColumns] = useState([
 		{
 			headerName: 'Новое',

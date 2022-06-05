@@ -12,29 +12,36 @@ import BackAndTitle from '/components/blocks/back-and-title.js'
 import AddButton from '/components/blocks/add-button.js'
 
 
-export async function getServerSideProps() {
-	const { creator , administrator, executor } = await execute('/api/team', {})
-	return {
-		props: { creator: creator, administrator:administrator, executor: executor }
-	}
+export async function getServerSideProps({ query }) {
+  return {
+    props: await execute('/api/getTeam', { projectId: query.projectId })
+  }
 }
 
 
-export default function Team({ creator, administrator, executor }) {
+export default function Team(props) {
+  if (typeof props.ok == typeof undefined) {
+    if (typeof props.error == typeof undefined) {
+      return ('emptyResponse')
+    }
+    return (props.error)
+  }
+  const { ok: { owner, admin, executors } } = props
+
 	const [userType] = useState([
 		{
 			headerName: 'Создатель проекта',
-			user: creator,
+			user: owner,
 			buttonPlus: "/empty.png"
 		},
 		{
 			headerName: 'Администратор',
-			user: administrator,
+			user: admin,
 			buttonPlus: '/plus.svg'
 		},
 		{
 			headerName: 'Исполнители',
-			user: executor,
+			user: executors,
 			buttonPlus: '/plus.svg'
 		}
 	])
