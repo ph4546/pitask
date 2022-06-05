@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
+import { useRouter } from 'next/router'
 import { useMediaQuery } from '/lib/react-helpers'
 import execute from '/lib/prop-helpers'
 import styles from '/styles/Tasks.module.css'
@@ -115,8 +116,9 @@ function TaskColumn({ headerName, tasks }) {
 }
 
 function TaskItem({ id, name, deadline }) {
+  const { projectId } = useRouter().query
   return (
-    <Link href={`/tasks/${encodeURIComponent(id)}`}>
+    <Link href={`/projects/${projectId}/tasks/${encodeURIComponent(id)}`}>
       <a className={styles.taskItem}>
         <div className={styles.taskItem__name}>{name}</div>
         <div className={styles.taskItem__deadline}>
