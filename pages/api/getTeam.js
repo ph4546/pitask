@@ -44,7 +44,7 @@ async function getProjectAdmin(projectId) {
       '/profilePurple.svg' AS avatar
     FROM Team
       JOIN Client ON Client.ID_Client = Team.ID_Client
-    WHERE Team.ID_Project = 1 AND Team.ID_Role = 1;`,
+    WHERE Team.ID_Project = ? AND Team.ID_Role = 1;`,
     [projectId])
 }
 
@@ -57,6 +57,6 @@ async function getProjectExecutors(projectId) {
       '/profilePurple.svg' AS avatar
     FROM Team
       JOIN Client ON Client.ID_Client = Team.ID_Client
-    WHERE Team.ID_Project = 1 AND Team.ID_Role = 2;`,
+    WHERE Team.ID_Project = ? AND Team.ID_Role = 2;`,
     [projectId])
 }
