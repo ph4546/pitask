@@ -1,5 +1,5 @@
 .button {
-    margin-top: 160px;
+    margin-top: 50px;
     margin-left: 300px;
     display: flex;
     padding: 13px 65px;
@@ -103,3 +103,12 @@ border: 1px solid #bdbdbd – устанавливает границу, у ко
 border-radius: 0.25rem – радиус скругления углов;
 transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out – выполняет изменение значений свойств border-color и box-shadow с анимацией длительностью 0.15 секунд посредством временной функцией ease-in-out.
   */
+  
+  .title {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 500;
+	font-size: 20px;
+	color: #FFFFFF;
+	
+	margin-left: 14px;
+  }

@@ -55,23 +55,20 @@ export default function Tasks(props) {
     <TopMenu>
       <LeftMenu sTasks={stylesLeftMenu.link_selected} sTeam={stylesLeftMenu.link} sProject={stylesLeftMenu.link}>
         <BackAndTitle text="МОЙ ПРОЕКТ" link='/projects' />
-
-      <div>
-				<AddButton text="Добавить задачу" onClick ={() => setShowModal(true)}/>
-		  	<Modal
-				onClose={() => setShowModal(false)}
-				show={showModal}
-		  	>	
-		    <h2 className={styles.h2}>Добавление задачи</h2>
-				<hr className={styles.hr}></hr>
-				<p><input className = {styles.nameOfTask} type="text" id="name" placeholder="Название задачи" size={60}></input></p>
-				<p><textarea className = {styles.description} type="text" id="description" placeholder="Описание задачи"></textarea></p>
-				<p><label className ={styles.deadlineText}>Дедлайн</label> 
-				<input className={styles.date} type="date"/> 
-				<input className={styles.time} type="time"/></p>
-				<button className={styles.buttonAccept} onClick={() => setShowModal(false)}>Готово</button>
-		  	</Modal>
-	  	</div>
+		<AddButton text="Добавить задачу" onClick ={() => setShowModal(true)}/>
+		<Modal
+			onClose={() => setShowModal(false)}
+			show={showModal}
+		>	
+		<h2 className={styles.h2}>Добавление задачи</h2>
+			<hr className={styles.hr}></hr>
+			<p><input className = {styles.nameOfTask} type="text" id="name" placeholder="Название задачи" size={60}></input></p>
+			<p><textarea className = {styles.description} type="text" id="description" placeholder="Описание задачи"></textarea></p>
+			<p><label className ={styles.deadlineText}>Дедлайн</label> 
+			<input className={styles.date} type="date"/> 
+			<input className={styles.time} type="time"/></p>
+			<button className={styles.buttonAccept} onClick={() => setShowModal(false)}>Готово</button>
+		</Modal>
 
         <div className={styles.content}>
           <button

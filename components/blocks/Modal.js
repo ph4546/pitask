@@ -51,9 +51,11 @@ const Modal = ({ show, onClose, children, title }) => {
   `;
   
   const StyledModal = styled.div`
+	position: absolute;
+	top: 70px;
     background: white;
     width: 500px;
-    height: 600px;
+    height: auto;
     border-radius: 15px;
     padding: 15px;
   `;

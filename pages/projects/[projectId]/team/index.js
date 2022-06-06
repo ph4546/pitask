@@ -10,6 +10,7 @@ import LeftMenu from '/components/layout/leftMenu.js'
 import LeftFilters from '/components/layout/leftFilters.js'
 import BackAndTitle from '/components/blocks/back-and-title.js'
 import AddButton from '/components/blocks/add-button.js'
+import Modal from '/components/blocks/Modal'
 
 
 export async function getServerSideProps({ query }) {
@@ -21,6 +22,7 @@ export async function getServerSideProps({ query }) {
 
 export default function Team(props) {
   // Обработать ошибки получения данных
+  const [showModal, setShowModal] = useState(false);
   if (typeof props.ok == typeof undefined) {
     if (typeof props.error == typeof undefined) {
       return (<div>emptyResponse</div>)
@@ -33,18 +35,15 @@ export default function Team(props) {
   const userType = [
     {
       headerName: 'Создатель проекта',
-      user: owner,
-      buttonPlus: "/empty.png"
+      user: owner
     },
     {
       headerName: 'Администратор',
-      user: admin,
-      buttonPlus: '/plus.svg'
+      user: admin
     },
     {
       headerName: 'Исполнители',
-      user: executors,
-      buttonPlus: '/plus.svg'
+      user: executors
     }
   ]
 	
@@ -52,10 +51,20 @@ export default function Team(props) {
 		<TopMenu> 
 			<LeftMenu sTasks={stylesLeftMenu.link} sTeam={stylesLeftMenu.link_selected} sProject={stylesLeftMenu.link}>
 				<BackAndTitle text="МОЙ ПРОЕКТ" link='/projects'/>
-				<AddButton text="Добавить участника"/>
+				<AddButton text="Добавить участника" onClick ={() => setShowModal(true)}/>
+				<Modal
+				onClose={() => setShowModal(false)}
+				show={showModal}
+				>	
+					<h2 className={styles.h2}>Добавление участника</h2>
+					<hr className={styles.hr}></hr>
+					<p><input className = {styles.mail} type="text" id="name" placeholder="Почта" size={60}></input></p>
+					<input className={styles.checkbox} type="checkbox" name="admin"/><label>Назначить администратором</label> 
+					<button className={styles.buttonAccept} onClick={() => setShowModal(false)}>Готово</button>
+				</Modal>
 				<div className={styles.content}>
 					<div className={styles.content__types}>
-						{userType.map(({ id, headerName, user, buttonPlus }) => <UserType key={id} id={id} headerName={headerName} user={user} buttonPlus={buttonPlus} />)}
+						{userType.map(({ id, headerName, user }) => <UserType key={id} id={id} headerName={headerName} user={user} />)}
 					</div>
 				</div>
 			</LeftMenu>
@@ -63,11 +72,10 @@ export default function Team(props) {
 	)
 }
 
-function UserType({ headerName, user, buttonPlus }) {
+function UserType({ headerName, user }) {
 	return (
 		<div className={styles.UserType}>
 			<div className={styles.userType__headerName}>{headerName}</div>
-			<div className={styles.userType__buttonPlus}><Image src={buttonPlus} alt="" width={21} height={21} /></div>
 			<div className={styles.userType__items}>
 				{user.map(({ id, name, description, avatar }) => <UserItem key={id} id={id} name={name} description={description} avatar={avatar} />)}
 			</div>
@@ -78,14 +86,12 @@ function UserType({ headerName, user, buttonPlus }) {
 function UserItem({ id, name, description, avatar }) {
 	return (
 		<div className={styles.userItem}>
-			<Link href={`/team/${encodeURIComponent(id)}`}>
-				<a href="">
-					<div className={styles.userItem__avatar}><Image src={avatar} alt="" width={70} height={70} /></div>
-					<div className={styles.userItem__name}>{name}</div>
-					<div className={styles.userItem__description}>{description}</div>
-				</a>
-			</Link>
-			<div className={styles.edit}>Редактировать</div>
+			<div>
+				<div className={styles.userItem__avatar}><Image src={avatar} alt="" width={70} height={70} /></div>
+				<div className={styles.userItem__name}>{name}</div>
+				<div className={styles.userItem__description}>{description}</div>
+			</div>
+			<div className={styles.delete}>Удалить из команды</div>
 		</div>
 	)
 }
