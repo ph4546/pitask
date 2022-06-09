@@ -10,6 +10,6 @@ export default async function handler(request, response) {
     }
     const enteredUserId = results[0].userId
 
-    return { ok: {} }
+    return { ok: { user:enteredUserId } }
   })
 }

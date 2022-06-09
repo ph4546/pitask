@@ -1,4 +1,6 @@
 import { useState } from "react";
+import Image from 'next/image'
+import Link from 'next/link'
 import execute from '/lib/prop-helpers'
 import Modal from "/components/blocks/Modal";
 import styles from "/styles/Projects.module.css";
@@ -7,7 +9,6 @@ import LeftFilters from '/components/layout/leftFilters.js'
 import AddButton from '/components/blocks/add-button.js'
 import SearchBox from '/components/blocks/searchbox.js'
 
-
 export async function getServerSideProps() {
   return {
     props: await execute('/api/getProjects', { searchText: '' })
@@ -15,17 +16,16 @@ export async function getServerSideProps() {
 }
 
 
-export default function Home(props) {
+export default function Projects(props) {
 	const [showModal, setShowModal] = useState(false);
-
-  // Обработать ошибки получения данных
-  if (typeof props.ok == typeof undefined) {
+	
+	if (typeof props.ok == typeof undefined) {
     if (typeof props.error == typeof undefined) {
       return (<div>emptyResponse</div>)
     }
     return (<div>{props.error}</div>)
   }
-  const { ok: { projects } } = props
+	const { ok: { projects } } = props
   
 	return (
 	  <TopMenu>
@@ -44,8 +44,25 @@ export default function Home(props) {
 				<p><input className = {styles.mail} type="text" id="mail" placeholder="Почта"></input></p>
 				<button className={styles.button} onClick = {() => setShowModal(false)}>Готово</button>
 			  </Modal>
+			  <div className={styles.content}>
+				{projects.map(({ projectId, projectName }) => <ProjectItem key={projectId} projectId={projectId} projectName={projectName} />)}
+			  </div>
 		  </LeftFilters>
 	  </TopMenu>
 	)
   }
+  
+  function ProjectItem({ projectId, projectName }) {
+	return (
+		<div className={styles.projectItem}>
+			<Link href={`/projects/${projectId}`}>
+				<a>
+					<div>
+						<div className={styles.projectItem__name}>{projectName}</div>
+					</div>
+				</a>
+			</Link>
+		</div>
+	)
+}
 

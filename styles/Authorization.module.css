@@ -1,0 +1,141 @@
+.obj
+{
+width: 500px;
+    height: 600px;
+    margin: auto;
+    color: white;
+    display: flex;
+    position: relative;
+}
+
+.logo
+{
+	position: absolute;
+    width: 282px;
+    height: 98px;
+    margin-left: 116px;
+    margin-top: 110px;
+    border: 1px solid #FFFFFF;
+    box-sizing: border-box;
+}
+
+.logo_a
+{
+    position: absolute;
+    width: 207px;
+    height: 42px;
+    left: 13%;
+    top: 29%;
+}
+
+.input
+{
+	margin-top: 250px;
+    margin-left: 23%;
+}
+
+
+
+
+.email
+{
+    position: absolute;
+    width: 267px;
+    height: 60px;
+    border: aliceblue;
+    background: #ffffff;
+
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 400px;
+	font-size: 25px;
+	line-height: 29px;
+
+	padding-left: 15px;
+
+	color: #3D3BBC;
+
+}
+
+.email::placeholder
+ {
+	position: absolute;
+	width: 560px;
+	height: 500px;
+	top: 25%;
+	left: 5%;
+
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 25px;
+	line-height: 29px;
+	letter-spacing: 0.2em;
+
+	color: #3D3BBC;
+ }
+
+.password1
+{
+    position: absolute;
+    width: 267px;
+    height: 60px;
+    margin-top: 75px;
+    border: aliceblue;
+    background: #ffffff;
+
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 25px;
+	line-height: 29px;
+	
+	padding-left: 15px;
+	
+	color: #3D3BBC;
+}
+
+
+.password1::placeholder
+ {
+	position: absolute;
+	width: 560px;
+	height: 500px;
+	top: 25%;
+	left: 5%;
+
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 25px;
+	line-height: 29px;
+	letter-spacing: 0.2em;
+
+	color: #3D3BBC;
+ }
+
+
+.button1
+{
+	position: absolute;
+	width: 282px;
+	height: 60px;
+
+	background: rgba(255, 255, 255, 0.21);
+	border: 1px solid #FFFFFF;
+	box-sizing: border-box;
+
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 400px;
+	font-size: 25px;
+	line-height: 29px;
+	letter-spacing: 0.2em;
+	transition: all 500ms ease; 
+	color: #FFFFFF;
+	margin-top: 180px;
+}
+
+.button1:hover {
+	background: rgba(300, 300, 300,0.3);
+}

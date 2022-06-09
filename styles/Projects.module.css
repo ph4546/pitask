@@ -1,3 +1,48 @@
+.content {
+	padding-top: 70px;
+	padding-left: 14px;
+	padding-right: 14px;
+}
+
+  .title {
+	position: absolute;
+	top: 80px;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 500;
+	font-size: 20px;
+	color: #FFFFFF;
+	
+	margin-left: 34px;
+  }
+
+.projectItem {	
+	position: relative;
+	padding: 15px;
+	height: 70px;
+	top: -11px;
+	background: #F1F1F1;
+	
+	margin-bottom: 20px;
+}
+
+.projectItem a {
+	text-decoration: none;
+}
+
+.projectItem__name {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 500;
+	font-size: 20px;
+	color: #3D3BBC;
+	
+	position: relative;
+	top: 23px;
+	margin-left: 24px;
+}
+
+
+
+
 .button {
     margin-top: 50px;
     margin-left: 300px;
@@ -103,12 +148,3 @@ border: 1px solid #bdbdbd – устанавливает границу, у ко
 border-radius: 0.25rem – радиус скругления углов;
 transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out – выполняет изменение значений свойств border-color и box-shadow с анимацией длительностью 0.15 секунд посредством временной функцией ease-in-out.
   */
-  
-  .title {
-	font-family: 'Roboto', sans-serif;
-	font-weight: 500;
-	font-size: 20px;
-	color: #FFFFFF;
-	
-	margin-left: 14px;
-  }
