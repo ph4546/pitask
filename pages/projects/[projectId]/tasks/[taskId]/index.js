@@ -10,6 +10,7 @@ const dayjs = require('dayjs')
 import TopMenu from '/components/layout/topMenu.js'
 import LeftMenu from '/components/layout/leftMenu.js'
 import BackAndTitle from '/components/blocks/back-and-title.js'
+import {useRouter} from 'next/router'
 
 
 export async function getServerSideProps({ query }) {
@@ -29,11 +30,13 @@ export default function AboutProject(/*props*/) {
   //}
   //const { ok: { description } } = props
 
+  const projectId = useRouter().query.projectId
+
 	return (
 		<>
 		<TopMenu>
 			<LeftMenu sTasks={stylesLeftMenu.link} sTeam={stylesLeftMenu.link} sProject={stylesLeftMenu.link_selected}>
-				<BackAndTitle text="НАЗВАНИЕ ЗАДАЧИ" link='/tasks' />
+				<BackAndTitle text="НАЗВАНИЕ ЗАДАЧИ" link={`/projects/${projectId}/tasks`} />
 				<div className={styles.content}>
 				</div>
 			</LeftMenu>
