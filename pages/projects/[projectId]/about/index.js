@@ -10,13 +10,14 @@ const dayjs = require('dayjs')
 import TopMenu from '/components/layout/topMenu.js'
 import LeftMenu from '/components/layout/leftMenu.js'
 import BackAndTitle from '/components/blocks/back-and-title.js'
+import { initSsr } from '/lib/prop-helpers'
 
 
-export async function getServerSideProps({ query }) {
+export const getServerSideProps = initSsr(async ({ query, req }) => {
   return {
-    props: await execute('/api/getProjectDescription', { projectId: query.projectId })
+    props: await execute('/api/getProjectDescription', { projectId: query.projectId }, req.headers.cookie)
   }
-}
+})
 
 
 export default function AboutProject(props) {

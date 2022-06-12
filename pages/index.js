@@ -3,8 +3,30 @@ import Image from 'next/image'
 import Link from 'next/link'
 import execute from '/lib/prop-helpers'
 import styles from '/styles/Authorization.module.css'
+import { useRouter } from 'next/router'
+import { initSsr } from '/lib/prop-helpers'
+import { hashPassword } from '/lib/session'
+
+
+export const getServerSideProps = initSsr(async ({ req }) => {
+  if (req.session.user != undefined) {
+    return {
+      redirect: {
+        destination: '/projects',
+        permanent: false,
+      }
+    }
+  }
+
+  return {
+    props: {}
+  }
+})
+
 
 export default function Authorization() {
+  const router = useRouter()
+
   return (
 		<div className={styles.obj}>
 			<div className={styles.logo}>
@@ -16,15 +38,26 @@ export default function Authorization() {
 			<div className={styles.input}>
 				<input  type="text"  placeholder="Почта" className={styles.email} id={"email"}/>
 				<input  type="password"  placeholder="Пароль" className={styles.password1} id={"password"}/>
-				<button className={styles.button1} onClick={()=>checkUser()}>Войти</button>
+				<button className={styles.button1} onClick={async () => await login(router)}>Войти</button>
 			</div>
 		</div>
   )
 }
 
-function checkUser() {
-	var email = document.getElementById('email').value;
-    var password = document.getElementById('password').value;
-	if (email == "почта" & password == "пароль") location.href = "/projects"
-	else alert("Неверный логин или пароль")
+async function login(router) {
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  const passwordHash = await hashPassword(password)
+  console.log(passwordHash)
+  const results = await execute('/api/login', { email, password: passwordHash })
+
+  // Обработать ошибки получения данных
+  if (typeof results.error != typeof undefined) {
+    if (results.error == 'emailOrPasswordIsIncorrect') {
+      alert('Неверный емейл или пароль')
+      return
+    }
+  }
+
+  router.push('/projects')
 }

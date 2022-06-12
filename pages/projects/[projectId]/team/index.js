@@ -11,18 +11,20 @@ import LeftFilters from '/components/layout/leftFilters.js'
 import BackAndTitle from '/components/blocks/back-and-title.js'
 import AddButton from '/components/blocks/add-button.js'
 import Modal from '/components/blocks/Modal'
+import { initSsr } from '/lib/prop-helpers'
 
 
-export async function getServerSideProps({ query }) {
+export const getServerSideProps = initSsr(async ({ query, req }) => {
   return {
-    props: await execute('/api/getTeam', { projectId: query.projectId })
+    props: await execute('/api/getTeam', { projectId: query.projectId }, req.headers.cookie)
   }
-}
+})
 
 
 export default function Team(props) {
-  // Обработать ошибки получения данных
   const [showModal, setShowModal] = useState(false);
+  
+  // Обработать ошибки получения данных
   if (typeof props.ok == typeof undefined) {
     if (typeof props.error == typeof undefined) {
       return (<div>emptyResponse</div>)

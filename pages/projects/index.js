@@ -8,18 +8,21 @@ import TopMenu from '/components/layout/topMenu.js'
 import LeftFilters from '/components/layout/leftFilters.js'
 import AddButton from '/components/blocks/add-button.js'
 import SearchBox from '/components/blocks/searchbox.js'
+import { initSsr } from '/lib/prop-helpers'
 
-export async function getServerSideProps() {
+
+export const getServerSideProps = initSsr(async ({ req }) => {
   return {
-    props: await execute('/api/getProjects', { searchText: '' })
+    props: await execute('/api/getProjects', { searchText: '' }, req.headers.cookie)
   }
-}
+})
 
 
 export default function Projects(props) {
 	const [showModal, setShowModal] = useState(false);
 	
-	if (typeof props.ok == typeof undefined) {
+  // Обработать ошибки получения данных
+  if (typeof props.ok == typeof undefined) {
     if (typeof props.error == typeof undefined) {
       return (<div>emptyResponse</div>)
     }

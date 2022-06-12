@@ -3,33 +3,35 @@ import {
   checkTaskStatusIsChangeableByExecutor, checkTaskDecisionIsChangeableByExecutor
 } from '/lib/api-database-helpers'
 
-export default async function handler(request, response) {
-  await initEndPoint(request, response, async (userId, { taskId, decision }) => {
-    if (!await checkTaskStatusIsChangeableByExecutor(taskId, userId)) {
-      return { error: 'userDoesNotHavePermissionToEditTaskDecision' }
-    }
+export default initEndPoint(async (userId, { taskId, decision }) => {
+  if (userId == undefined) {
+    return { error: 'userNotLoggedIn' }
+  }
 
-    if (!await checkTaskDecisionIsChangeableByExecutor(taskId, userId)) {
-      return { error: 'userMustMarkTaskAsNewOrInProgressToEditTaskDecision' }
-    }
+  if (!await checkTaskStatusIsChangeableByExecutor(taskId, userId)) {
+    return { error: 'userDoesNotHavePermissionToEditTaskDecision' }
+  }
 
-    const decisionId = await getDecisionId(taskId, userId)
-    if (decisionId == null) {
-      const { insertId } = await query(`
-        INSERT INTO Decision(ID_Task, TaskText) VALUES (?, ?);`,
-        [taskId, decision])
-      await query(`
-        UPDATE Task SET ID_Decision = ? WHERE ID_Task = ? AND ID_Customer = ?;`,
-        [insertId, taskId, userId])
-    } else {
-      await query(`
-        UPDATE Decision SET TaskText = ? WHERE ID_Decision = ?;`,
-        [decision, decisionId])
-    }
+  if (!await checkTaskDecisionIsChangeableByExecutor(taskId, userId)) {
+    return { error: 'userMustMarkTaskAsNewOrInProgressToEditTaskDecision' }
+  }
 
-    return { ok: {} }
-  })
-}
+  const decisionId = await getDecisionId(taskId, userId)
+  if (decisionId == null) {
+    const { insertId } = await query(`
+      INSERT INTO Decision(ID_Task, TaskText) VALUES (?, ?);`,
+      [taskId, decision])
+    await query(`
+      UPDATE Task SET ID_Decision = ? WHERE ID_Task = ? AND ID_Customer = ?;`,
+      [insertId, taskId, userId])
+  } else {
+    await query(`
+      UPDATE Decision SET TaskText = ? WHERE ID_Decision = ?;`,
+      [decision, decisionId])
+  }
+
+  return { ok: {} }
+})
 
 async function getDecisionId(taskId, userId) {
   const results = await query(`

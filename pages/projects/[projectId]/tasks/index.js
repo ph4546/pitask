@@ -12,13 +12,14 @@ import LeftMenu from '/components/layout/leftMenu.js'
 import BackAndTitle from '/components/blocks/back-and-title.js'
 import AddButton from '/components/blocks/add-button.js'
 import Modal from '/components/blocks/Modal'
+import { initSsr } from '/lib/prop-helpers'
 
 
-export async function getServerSideProps({ query }) {
+export const getServerSideProps = initSsr(async ({ query, req }) => {
   return {
-    props: await execute('/api/getTasks', { projectId: query.projectId })
+    props: await execute('/api/getTasks', { projectId: query.projectId }, req.headers.cookie)
   }
-}
+})
 
 
 export default function Tasks(props) {

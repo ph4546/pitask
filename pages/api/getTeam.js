@@ -1,37 +1,39 @@
 import { initEndPoint, query } from '/lib/api-helpers'
 import { checkUserIsOwner, checkUserIsAdmin, checkUserIsExecutor } from '/lib/api-database-helpers'
 
-export default async function handler(request, response) {
-  await initEndPoint(request, response, async (userId, { projectId }) => {
-    const userIsOwner = await checkUserIsOwner(projectId, userId)
-    const userIsAdmin = await checkUserIsAdmin(projectId, userId)
-    const userIsExecutor = await checkUserIsExecutor(projectId, userId)
+export default initEndPoint(async (userId, { projectId }) => {
+  if (userId == undefined) {
+    return { error: 'userNotLoggedIn' }
+  }
 
-    if (!(userIsOwner || userIsAdmin || userIsExecutor)) {
-      return { error: 'userDoesNotHavePermissionToOpenThisProject' }
-    }
+  const userIsOwner = await checkUserIsOwner(projectId, userId)
+  const userIsAdmin = await checkUserIsAdmin(projectId, userId)
+  const userIsExecutor = await checkUserIsExecutor(projectId, userId)
 
-    return {
-      ok: {
-        owner: await getProjectOwner(projectId),
-        admin: await getProjectAdmin(projectId),
-        executors: await getProjectExecutors(projectId)
-      }
+  if (!(userIsOwner || userIsAdmin || userIsExecutor)) {
+    return { error: 'userDoesNotHavePermissionToOpenThisProject' }
+  }
+
+  return {
+    ok: {
+      owner: await getProjectOwner(projectId),
+      admin: await getProjectAdmin(projectId),
+      executors: await getProjectExecutors(projectId)
     }
-  })
-}
+  }
+})
 
 async function getProjectOwner(projectId) {
   return await query(`
-      SELECT
-        Project.ID_Client AS id,
-        Client.NameLog AS name,
-        Team.Description AS description,
-        '/profilePurple.svg' AS avatar
-      FROM Project
-        JOIN Client ON Client.ID_Client = Project.ID_Client
-        JOIN Team ON Team.ID_Client = Project.ID_Client
-      WHERE Project.ID_Project = ?;`,
+    SELECT
+      Project.ID_Client AS id,
+      Client.NameLog AS name,
+      Team.Description AS description,
+      '/profilePurple.svg' AS avatar
+    FROM Project
+      JOIN Client ON Client.ID_Client = Project.ID_Client
+      JOIN Team ON Team.ID_Client = Project.ID_Client
+    WHERE Project.ID_Project = ?;`,
     [projectId])
 }
 
