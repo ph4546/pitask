@@ -48,7 +48,6 @@ async function login(router) {
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
   const passwordHash = await hashPassword(password)
-  console.log(passwordHash)
   const results = await execute('/api/login', { email, password: passwordHash })
 
   // Обработать ошибки получения данных
