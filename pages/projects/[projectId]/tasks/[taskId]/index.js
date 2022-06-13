@@ -21,17 +21,19 @@ export const getServerSideProps = initSsr(async ({ query, req }) => {
 })
 
 
-export default function AboutProject(/*props*/) {
-  // Обработать ошибки получения данных
-//	if (typeof props.ok == typeof undefined) {
-  //  if (typeof props.error == typeof undefined) {
-    //  return (<div>emptyResponse</div>)
-    //}
-    //return (<div>{props.error}</div>)
-  //}
-  //const { ok: { description } } = props
+export default function AboutProject(props) {
+  const router = useRouter()
 
-  const projectId = useRouter().query.projectId
+  // Обработать ошибки получения данных
+	if (typeof props.ok == typeof undefined) {
+    if (typeof props.error == typeof undefined) {
+      return (<div>emptyResponse</div>)
+    }
+    return (<div>{props.error}</div>)
+  }
+  const { ok: { description } } = props
+
+  const projectId = router.query.projectId
 
 	return (
 		<>
@@ -43,20 +45,38 @@ export default function AboutProject(/*props*/) {
 			</LeftMenu>
 		</TopMenu>
 		<div className = {styles.TextBox1}>
-			<TextArea placeholder='Описание задачи...'></TextArea>
+			<TextArea placeholder='Описание задачи...' onChange={(e) => {}}>{description}</TextArea>
 		</div>
 
 		<div className = {styles.TextBox2}>
-			<TextArea placeholder='Результат...'></TextArea>  
+			<TextArea placeholder='Результат...' onChange={(e) => {}}></TextArea>  
 		</div>
 
 		<div>
-			<select className = {styles.CBswitch}>
-				<option value="New">Новая</option>
-				<option value="InProgress">В разработке</option>
-				<option value="Complete">Завершено</option>
+			<select className={styles.CBswitch} onChange={async (e) => onClickMarkTaskSomething(router, e.target.value)}>
+				<option value='/api/markTaskNew'>Новая</option>
+				<option value='/api/markTaskInProgress'>В разработке</option>
+				<option value='/api/markTaskCompleted'>Завершено</option>
 			</select>
 		</div>
 		</>
 	)
+}
+
+async function onClickMarkTaskSomething(router, endPoint) {
+  const taskId = router.query.taskId
+  const results = await execute(endPoint, { taskId })
+
+  // Обработать ошибки получения данных
+  if (typeof results.error != typeof undefined) {
+    if (results.error == 'userNotLoggedIn') {
+      router.push('/')
+      return
+    } else {
+      alert(results.error)
+      return
+    }
+  }
+
+  router.reload()
 }

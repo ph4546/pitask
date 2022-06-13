@@ -12,6 +12,7 @@ import BackAndTitle from '/components/blocks/back-and-title.js'
 import AddButton from '/components/blocks/add-button.js'
 import Modal from '/components/blocks/Modal'
 import { initSsr } from '/lib/prop-helpers'
+import { useRouter } from 'next/router'
 
 
 export const getServerSideProps = initSsr(async ({ query, req }) => {
@@ -22,6 +23,7 @@ export const getServerSideProps = initSsr(async ({ query, req }) => {
 
 
 export default function Team(props) {
+  const router = useRouter()
   const [showModal, setShowModal] = useState(false);
   
   // Обработать ошибки получения данных
@@ -60,9 +62,9 @@ export default function Team(props) {
 				>	
 					<h2 className={styles.h2}>Добавление участника</h2>
 					<hr className={styles.hr}></hr>
-					<p><input className = {styles.mail} type="text" id="name" placeholder="Почта" size={60}></input></p>
-					<input className={styles.checkbox} type="checkbox" name="admin"/><label>Назначить администратором</label> 
-					<button className={styles.buttonAccept} onClick={() => setShowModal(false)}>Готово</button>
+					<p><input className = {styles.mail} type="text" id="email" placeholder="Почта" size={60}></input></p>
+					<input className={styles.checkbox} type="checkbox" id="addedUserIsAdmin" name="admin"/><label>Назначить администратором</label> 
+					<button className={styles.buttonAccept} onClick={async () => onClickFinishModal(router, setShowModal)}>Готово</button>
 				</Modal>
 				<div className={styles.content}>
 					<div className={styles.content__types}>
@@ -86,6 +88,7 @@ function UserType({ headerName, user }) {
 }
 
 function UserItem({ id, name, description, avatar }) {
+  const router = useRouter()
 	return (
 		<div className={styles.userItem}>
 			<div>
@@ -93,7 +96,46 @@ function UserItem({ id, name, description, avatar }) {
 				<div className={styles.userItem__name}>{name}</div>
 				<div className={styles.userItem__description}>{description}</div>
 			</div>
-			<div className={styles.delete}>Удалить из команды</div>
+			<button className={styles.delete} onClick={async () => onClickDeleteMember(router, id)}>Удалить из команды</button>
 		</div>
 	)
+}
+
+async function onClickFinishModal(router, setShowModal) {
+  const projectId = router.query.projectId
+  const email = document.getElementById('email').value
+  const addedUserIsAdmin = document.getElementById('addedUserIsAdmin').checked
+  const results = await execute('/api/addMember', { projectId, email, addedUserIsAdmin })
+
+  // Обработать ошибки получения данных
+  if (typeof results.error != typeof undefined) {
+    if (results.error == 'userNotLoggedIn') {
+      router.push('/')
+      return
+    } else {
+      alert(results.error)
+      return
+    }
+  }
+
+  setShowModal(false)
+  router.reload()
+}
+
+async function onClickDeleteMember(router, deletedUserId) {
+  const projectId = router.query.projectId
+  const results = await execute('/api/deleteMember', { projectId, deletedUserId })
+
+  // Обработать ошибки получения данных
+  if (typeof results.error != typeof undefined) {
+    if (results.error == 'userNotLoggedIn') {
+      router.push('/')
+      return
+    } else {
+      alert(results.error)
+      return
+    }
+  }
+
+  router.reload()
 }

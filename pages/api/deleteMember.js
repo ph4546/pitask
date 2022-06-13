@@ -10,6 +10,10 @@ export default initEndPoint(async (userId, { projectId, deletedUserId }) => {
     return { error: 'userDoesNotHavePermissionToDeleteMembers' }
   }
 
+  if (await checkUserIsOwner(projectId, deletedUserId)) {
+    return { error: 'userCannotBeDeleted' }
+  }
+
   await query(`
     DELETE FROM Team WHERE ID_Project = ? AND ID_Client = ?;`,
     [projectId, deletedUserId])

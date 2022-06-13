@@ -84,7 +84,9 @@
 	display: inline-block;
 	top: 70px;
 	right: 10px;
-	
+
+	background: none;
+  border: none;
 	text-decoration: underline;
 	cursor: pointer;
 }

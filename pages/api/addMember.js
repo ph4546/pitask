@@ -1,9 +1,9 @@
-import { initEndPoint } from '/lib/api-helpers'
+import { initEndPoint, query } from '/lib/api-helpers'
 import {
-  checkUserIsOwner, checkUserIsAdmin, checkUserHasAlreadyBeenInvited, checkAdminIsNotUniqueness
+  checkUserIsOwner, checkUserIsAdmin, checkUserHasAlreadyBeenInvited, checkAdminIsExist
 } from '/lib/api-database-helpers'
 
-export default initEndPoint(async (userId, { projectId, addedUserId, addedUserIsAdmin }) => {
+export default initEndPoint(async (userId, { projectId, email, addedUserIsAdmin }) => {
   if (userId == undefined) {
     return { error: 'userNotLoggedIn' }
   }
@@ -19,12 +19,17 @@ export default initEndPoint(async (userId, { projectId, addedUserId, addedUserIs
     return { error: 'userDoesNotHavePermissionToAddAdmin' }
   }
 
-  if (await checkUserHasAlreadyBeenInvited(projectId, addedUserId)) {
-    return { error: 'newMemberHasAlreadyBeenAdded' }
+  const addedUserId = await getUserId(email)
+  if (addedUserId == null) {
+    return { error: 'userWithThisEmailNotFound' }
   }
 
-  if (addedUserIsAdmin && await checkAdminIsNotUniqueness(projectId)) {
+  if (addedUserIsAdmin && await checkAdminIsExist(projectId)) {
     return { error: 'onlyOneAdminAllowed' }
+  }
+
+  if (userId == addedUserId || await checkUserHasAlreadyBeenInvited(projectId, addedUserId)) {
+    return { error: 'newMemberHasAlreadyBeenAdded' }
   }
 
   await query(`
@@ -32,3 +37,15 @@ export default initEndPoint(async (userId, { projectId, addedUserId, addedUserIs
     [projectId, addedUserId, addedUserIsAdmin ? 1 : 2])
   return { ok: {} }
 })
+
+
+// Return is nullable
+async function getUserId(email) {
+  const results = await query(`
+    SELECT ID_Client AS userId FROM Client WHERE email = ? LIMIT 1;`,
+    [email])
+  if (results.length < 1) {
+    return null
+  }
+  return results[0].userId
+}

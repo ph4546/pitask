@@ -9,6 +9,7 @@ import LeftFilters from '/components/layout/leftFilters.js'
 import AddButton from '/components/blocks/add-button.js'
 import SearchBox from '/components/blocks/searchbox.js'
 import { initSsr } from '/lib/prop-helpers'
+import { useRouter } from 'next/router'
 
 
 export const getServerSideProps = initSsr(async ({ req }) => {
@@ -19,6 +20,7 @@ export const getServerSideProps = initSsr(async ({ req }) => {
 
 
 export default function Projects(props) {
+  const router = useRouter()
 	const [showModal, setShowModal] = useState(false);
 	
   // Обработать ошибки получения данных
@@ -45,7 +47,7 @@ export default function Projects(props) {
 				<p><textarea className = {styles.description} type="text" id="description" placeholder="Описание проекта"></textarea></p>
 				<div className = {styles.addText}>Добавление участников</div>
 				<p><input className = {styles.mail} type="text" id="mail" placeholder="Почта"></input></p>
-				<button className={styles.button} onClick = {() => setShowModal(false)}>Готово</button>
+				<button className={styles.button} onClick = {async () => onClickFinishModal(router, setShowModal)}>Готово</button>
 			  </Modal>
 			  <div className={styles.content}>
 				{projects.map(({ projectId, projectName }) => <ProjectItem key={projectId} projectId={projectId} projectName={projectName} />)}
@@ -69,3 +71,19 @@ export default function Projects(props) {
 	)
 }
 
+async function onClickFinishModal(router, setShowModal) {
+  const projectName = document.getElementById('name').value
+  const projectDescription = document.getElementById('description').value
+  const results = await execute('/api/addProject', { projectName, projectDescription })
+
+  // Обработать ошибки получения данных
+  if (typeof results.error != typeof undefined) {
+    if (results.error == 'userNotLoggedIn') {
+      router.push('/')
+      return
+    }
+  }
+
+  setShowModal(false)
+  router.reload()
+}
